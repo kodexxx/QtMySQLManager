@@ -17,43 +17,17 @@
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>771</width>
+      <x>10</x>
+      <y>40</y>
+      <width>781</width>
       <height>461</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>0</y>
-      <width>58</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Status:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="dbConnectStatus">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>0</y>
-      <width>511</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Not connected</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>260</x>
       <y>510</y>
       <width>112</width>
       <height>32</height>
@@ -66,7 +40,7 @@
    <widget class="QPushButton" name="deleteButton">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>370</x>
       <y>510</y>
       <width>112</width>
       <height>32</height>
@@ -74,6 +48,29 @@
     </property>
     <property name="text">
      <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="tableChanger">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>1</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>41</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Table:</string>
     </property>
    </widget>
   </widget>

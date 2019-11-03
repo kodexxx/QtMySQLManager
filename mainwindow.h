@@ -22,9 +22,12 @@ private slots:
 
     void on_deleteButton_clicked();
 
+    void on_tableChanger_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
 
     EducationLevelModel* educationLevelModel;
+    QSqlDatabase db;
 };
 #endif // MAINWINDOW_H
