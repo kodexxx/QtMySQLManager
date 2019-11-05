@@ -57,12 +57,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    this->listModels.at(this->selected)->insertRow(this->listModels.at(this->selected)->rowCount());
+    QSqlRelationalTableModel *model = this->listModels.at(this->selected);
+    model->insertRow(model->rowCount());
 
     AddDialog *dialog = new AddDialog(this);
     dialog->setModal(true);
 
+    dialog->setModel(model);
     dialog->show();
+
 }
 
 void MainWindow::on_deleteButton_clicked()
@@ -98,4 +101,6 @@ void MainWindow::updateModel() {
     ui->tableView->resizeColumnsToContents();
 
     QSqlRelationalTableModel *model = this->listModels.at(this->selected);
+
+    model->record().count();
 }
