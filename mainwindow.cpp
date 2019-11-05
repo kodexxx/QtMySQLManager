@@ -1,3 +1,4 @@
+#include "adddialog.h"
 #include "education_level_model.h"
 #include "employee_model.h"
 #include "mainwindow.h"
@@ -57,6 +58,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     this->listModels.at(this->selected)->insertRow(this->listModels.at(this->selected)->rowCount());
+
+    AddDialog *dialog = new AddDialog(this);
+    dialog->setModal(true);
+
+    dialog->show();
 }
 
 void MainWindow::on_deleteButton_clicked()
@@ -72,7 +78,7 @@ void MainWindow::on_deleteButton_clicked()
     for(int i = rows.count() - 1; i >= 0; i -= 1) {
        int current = rows[i];
        if( current != prev ) {
-          this->educationLevelModel->removeRow(current);
+          this->listModels.at(this->selected)->removeRow(current);
           prev = current;
        }
     }
@@ -90,4 +96,6 @@ void MainWindow::updateModel() {
     ui->tableView->setModel(this->listModels.at(this->selected));
     ui->tableView->setItemDelegate(new QSqlRelationalDelegate(ui->tableView));
     ui->tableView->resizeColumnsToContents();
+
+    QSqlRelationalTableModel *model = this->listModels.at(this->selected);
 }

@@ -16,17 +16,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    adddialog.cpp \
+    addform.cpp \
     education_level_model.cpp \
     employee_model.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    adddialog.h \
+    addform.h \
     education_level_model.h \
     employee_model.h \
     mainwindow.h
 
 FORMS += \
+    adddialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.
