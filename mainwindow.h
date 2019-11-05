@@ -28,6 +28,10 @@ private:
     Ui::MainWindow *ui;
 
     EducationLevelModel* educationLevelModel;
+    QList<QSqlRelationalTableModel*> listModels;
+    int selected = 0;
     QSqlDatabase db;
+
+    void updateModel();
 };
 #endif // MAINWINDOW_H

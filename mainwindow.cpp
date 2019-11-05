@@ -1,10 +1,11 @@
 #include "education_level_model.h"
+#include "employee_model.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QtSql>
 
-const QStringList TABLES = {"Discipline", "Edication form", "Edication level", "Employee"};
+const QStringList TABLES = {"Edication level", "Employee"};
 
 const QList<QSqlRelationalTableModel> p = {};
 
@@ -14,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    qDebug() << typeid (EducationLevelModel).name();
+
     this->db = QSqlDatabase::addDatabase("QMYSQL");
     this->db.setHostName("127.0.0.1");
     this->db.setDatabaseName("kodex");
@@ -22,17 +25,21 @@ MainWindow::MainWindow(QWidget *parent)
     bool ok = db.open();
 
 
+
+
     if (ok) {
         ui->statusbar->showMessage("Connection to DB is ready");
 
-        this->educationLevelModel = new EducationLevelModel(this, this->db);
 
-        this->educationLevelModel->select();
+        this->listModels = {new EducationLevelModel(this, this->db), new employee_model(this, this->db)};
+         ui->tableChanger->addItems(TABLES);
 
-        ui->tableView->setModel(this->educationLevelModel);
-        ui->tableView->resizeColumnsToContents();
+         this->updateModel();
 
-        ui->tableChanger->addItems(TABLES);
+
+        ui->tableView->verticalHeader()->setVisible(false);
+
+
     } else {
         ui->statusbar->showMessage("Failed connect to db: " + this->db.lastError().text());
     }
@@ -49,7 +56,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    this->educationLevelModel->insertRow(this->educationLevelModel->rowCount());
+    this->listModels.at(this->selected)->insertRow(this->listModels.at(this->selected)->rowCount());
 }
 
 void MainWindow::on_deleteButton_clicked()
@@ -71,14 +78,16 @@ void MainWindow::on_deleteButton_clicked()
     }
 }
 
-void MainWindow::on_tableChanger_currentIndexChanged(int index)
+void MainWindow::on_tableChanger_currentIndexChanged(int selected)
 {
-    ui->statusbar->showMessage("Connection to DB is ready");
+    this->selected = selected;
+    this->updateModel();
+}
 
-    this->educationLevelModel = new EducationLevelModel(this, this->db);
 
-    this->educationLevelModel->select();
-
-    ui->tableView->setModel(this->educationLevelModel);
+void MainWindow::updateModel() {
+    this->listModels.at(this->selected)->select();
+    ui->tableView->setModel(this->listModels.at(this->selected));
+    ui->tableView->setItemDelegate(new QSqlRelationalDelegate(ui->tableView));
     ui->tableView->resizeColumnsToContents();
 }
