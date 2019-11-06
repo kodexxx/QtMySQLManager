@@ -4,7 +4,6 @@
 #include <qsqlrelationaltablemodel.h>
 
 
-
 class AddForm
 {
 public:
@@ -13,6 +12,7 @@ public:
 
 private:
     QSqlRelationalTableModel *model;
+
 };
 
 #endif // ADDFORM_H

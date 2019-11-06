@@ -18,17 +18,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     adddialog.cpp \
     addform.cpp \
+    bloodgroupmodel.cpp \
+    departmentmodel.cpp \
     education_level_model.cpp \
     employee_model.cpp \
+    facultymodel.cpp \
+    jobsmodel.cpp \
+    jobtypemodel.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    personmodel.cpp
 
 HEADERS += \
     adddialog.h \
     addform.h \
+    bloodgroupmodel.h \
+    departmentmodel.h \
     education_level_model.h \
     employee_model.h \
-    mainwindow.h
+    facultymodel.h \
+    jobsmodel.h \
+    jobtypemodel.h \
+    mainwindow.h \
+    personmodel.h
 
 FORMS += \
     adddialog.ui \

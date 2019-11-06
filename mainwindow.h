@@ -33,5 +33,6 @@ private:
     QSqlDatabase db;
 
     void updateModel();
+    void showError(QString message);
 };
 #endif // MAINWINDOW_H
