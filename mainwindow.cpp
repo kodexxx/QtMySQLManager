@@ -45,24 +45,33 @@ MainWindow::MainWindow(QWidget *parent)
         ui->statusbar->showMessage("Connection to DB is ready");
 
 
-        this->listModels = {
-            new EducationLevelModel(this, this->db),
-            new EmployeeModel(this, this->db),
-            new JobTypeModel(this, this->db),
-            new JobsModel(this, this->db),
-            new DepartmentModel(this, this->db),
-            new FacultyModel(this, this->db),
-            new BloodGroupModel(this, this->db),
-            new PersonModel(this, this->db)
-        };
-        ui->tableChanger->addItems(TABLES);
+//        this->listModels = {
+//            new EducationLevelModel(this, this->db),
+//            new EmployeeModel(this, this->db),
+//            new JobTypeModel(this, this->db),
+//            new JobsModel(this, this->db),
+//            new DepartmentModel(this, this->db),
+//            new FacultyModel(this, this->db),
+//            new BloodGroupModel(this, this->db),
+//            new PersonModel(this, this->db)
+//        };
+
+        this->modelsMap->insert("Edication level", new EducationLevelModel(this, this->db));
+        this->modelsMap->insert("Employee", new EmployeeModel(this, this->db));
+        this->modelsMap->insert("Job Type", new JobTypeModel(this, this->db));
+        this->modelsMap->insert("Jobs", new JobsModel(this, this->db));
+        this->modelsMap->insert("Department", new DepartmentModel(this, this->db));
+        this->modelsMap->insert("Faculty", new FacultyModel(this, this->db));
+        this->modelsMap->insert("Blood Group", new BloodGroupModel(this, this->db));
+        this->modelsMap->insert("Person", new PersonModel(this, this->db));
+        this->selectedStr = "Edication level";
+
+        ui->tableChanger->addItems(*this->getTableName());
 
         this->updateModel();
 
 
         ui->tableView->verticalHeader()->setVisible(false);
-
-
     } else {
         ui->statusbar->showMessage("Failed connect to db: " + this->db.lastError().text());
     }
@@ -79,7 +88,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QSqlRelationalTableModel *model = this->listModels.at(this->selected);
+    QSqlRelationalTableModel *model = this->modelsMap->value(this->selectedStr);
 
     AddDialog *dialog = new AddDialog(this);
     dialog->setModal(true);
@@ -89,7 +98,6 @@ void MainWindow::on_pushButton_clicked()
         qDebug() << "adding data";
         QList<QPair<QString, QString> >* values = dialog->getValues();
 
-        QSqlRelationalTableModel *model = this->listModels.at(this->selected);
         QSqlRecord record = model->record();
 
         for (auto item : *values) {
@@ -109,6 +117,7 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_deleteButton_clicked()
 {
     QItemSelection selection( ui->tableView->selectionModel()->selection() );
+    QSqlRelationalTableModel *model = this->modelsMap->value(this->selectedStr);
 
     QList<int> rows;
     foreach( const QModelIndex & index, selection.indexes() ) {
@@ -119,18 +128,18 @@ void MainWindow::on_deleteButton_clicked()
     for(int i = rows.count() - 1; i >= 0; i -= 1) {
         int current = rows[i];
         if( current != prev ) {
-            this->listModels.at(this->selected)->removeRow(current);
+            model->removeRow(current);
             prev = current;
         }
     }
 
-    this->listModels.at(this->selected)->select();
+    model->select();
 }
 
 void MainWindow::on_tableChanger_currentIndexChanged(int selected)
 {
-    this->selected = selected;
-    this->updateModel();
+    //    this->selected = selected;
+    //    this->updateModel();
 }
 
 void MainWindow::showError(QString message) {
@@ -141,13 +150,30 @@ void MainWindow::showError(QString message) {
     msgBox.exec();
 }
 
+QStringList* MainWindow::getTableName()
+{
+    QStringList* result = new QStringList();
+
+    for (auto item: this->modelsMap->toStdMap()) {
+        result->push_back(item.first);
+    }
+
+    return result;
+}
+
 void MainWindow::updateModel() {
-    this->listModels.at(this->selected)->select();
-    ui->tableView->setModel(this->listModels.at(this->selected));
+    QSqlRelationalTableModel *model = this->modelsMap->value(this->selectedStr);
+    model->select();
+    ui->tableView->setModel(model);
     ui->tableView->setItemDelegate(new QSqlRelationalDelegate(ui->tableView));
     ui->tableView->resizeColumnsToContents();
 
-    QSqlRelationalTableModel *model = this->listModels.at(this->selected);
 
     model->record().count();
+}
+
+void MainWindow::on_tableChanger_currentIndexChanged(const QString &selected)
+{
+    this->selectedStr = selected;
+    this->updateModel();
 }
