@@ -67,12 +67,6 @@ AddDialog::~AddDialog()
     delete ui;
 }
 
-void AddDialog::on_fieldsList_currentRowChanged(int currentRow)
-{
-
-}
-
-
 QList<QPair<QString, QString> >* AddDialog::getValues() {
     QList<QPair<QString, QString> > *result = new QList<QPair<QString, QString> >();
     qDebug() << "getting values";

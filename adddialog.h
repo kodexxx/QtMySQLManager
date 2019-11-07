@@ -24,8 +24,6 @@ public:
     ~AddDialog();
 
     QList<QPair<QString, QString> >* getValues();
-private slots:
-    void on_fieldsList_currentRowChanged(int currentRow);
 
 private:
     Ui::AddDialog *ui;

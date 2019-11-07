@@ -12,17 +12,6 @@
 #include <QMessageBox>
 #include <QtSql>
 
-const QStringList TABLES = {"Edication level",
-                            "Employee",
-                            "Job Type",
-                            "Jobs",
-                            "Department",
-                            "Faculty",
-                            "Blood Group",
-                            "Person"};
-
-const QList<QSqlRelationalTableModel> p = {};
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -39,22 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
     bool ok = db.open();
 
 
-
-
     if (ok) {
         ui->statusbar->showMessage("Connection to DB is ready");
-
-
-//        this->listModels = {
-//            new EducationLevelModel(this, this->db),
-//            new EmployeeModel(this, this->db),
-//            new JobTypeModel(this, this->db),
-//            new JobsModel(this, this->db),
-//            new DepartmentModel(this, this->db),
-//            new FacultyModel(this, this->db),
-//            new BloodGroupModel(this, this->db),
-//            new PersonModel(this, this->db)
-//        };
 
         this->modelsMap->insert("Edication level", new EducationLevelModel(this, this->db));
         this->modelsMap->insert("Employee", new EmployeeModel(this, this->db));
@@ -64,27 +39,18 @@ MainWindow::MainWindow(QWidget *parent)
         this->modelsMap->insert("Faculty", new FacultyModel(this, this->db));
         this->modelsMap->insert("Blood Group", new BloodGroupModel(this, this->db));
         this->modelsMap->insert("Person", new PersonModel(this, this->db));
-        this->selectedStr = "Edication level";
 
-        ui->tableChanger->addItems(*this->getTableName());
+        QStringList tableNames = this->getTableName();
 
+        this->selectedStr = tableNames[0];
+
+        ui->tableChanger->addItems(tableNames);
         this->updateModel();
-
-
         ui->tableView->verticalHeader()->setVisible(false);
     } else {
         ui->statusbar->showMessage("Failed connect to db: " + this->db.lastError().text());
     }
-
-    //    ui->tableChanger->
-
 }
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -116,11 +82,11 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_deleteButton_clicked()
 {
-    QItemSelection selection( ui->tableView->selectionModel()->selection() );
+    QItemSelection selection(ui->tableView->selectionModel()->selection());
     QSqlRelationalTableModel *model = this->modelsMap->value(this->selectedStr);
 
     QList<int> rows;
-    foreach( const QModelIndex & index, selection.indexes() ) {
+    foreach(const QModelIndex &index, selection.indexes()) {
         rows.append( index.row() );
     }
 
@@ -136,13 +102,9 @@ void MainWindow::on_deleteButton_clicked()
     model->select();
 }
 
-void MainWindow::on_tableChanger_currentIndexChanged(int selected)
-{
-    //    this->selected = selected;
-    //    this->updateModel();
-}
 
-void MainWindow::showError(QString message) {
+void MainWindow::showError(QString message)
+{
     QMessageBox msgBox;
     msgBox.setText(message);
     msgBox.setIcon(QMessageBox::Critical);
@@ -150,7 +112,7 @@ void MainWindow::showError(QString message) {
     msgBox.exec();
 }
 
-QStringList* MainWindow::getTableName()
+QStringList MainWindow::getTableName()
 {
     QStringList* result = new QStringList();
 
@@ -158,10 +120,11 @@ QStringList* MainWindow::getTableName()
         result->push_back(item.first);
     }
 
-    return result;
+    return *result;
 }
 
-void MainWindow::updateModel() {
+void MainWindow::updateModel()
+{
     QSqlRelationalTableModel *model = this->modelsMap->value(this->selectedStr);
     model->select();
     ui->tableView->setModel(model);
@@ -176,4 +139,9 @@ void MainWindow::on_tableChanger_currentIndexChanged(const QString &selected)
 {
     this->selectedStr = selected;
     this->updateModel();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
 }
