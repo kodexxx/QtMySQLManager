@@ -17,7 +17,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     adddialog.cpp \
-    addform.cpp \
     bloodgroupmodel.cpp \
     departmentmodel.cpp \
     education_level_model.cpp \
@@ -30,7 +29,6 @@ SOURCES += \
     personmodel.cpp
 
 HEADERS += \
-    adddialog.h \
     addform.h \
     bloodgroupmodel.h \
     departmentmodel.h \
