@@ -19,8 +19,8 @@ SOURCES += \
     adddialog.cpp \
     bloodgroupmodel.cpp \
     departmentmodel.cpp \
-    education_level_model.cpp \
-    employee_model.cpp \
+    educationlevelmodel.cpp \
+    employeemodel.cpp \
     facultymodel.cpp \
     jobsmodel.cpp \
     jobtypemodel.cpp \
@@ -32,8 +32,8 @@ HEADERS += \
     adddialog.h \
     bloodgroupmodel.h \
     departmentmodel.h \
-    education_level_model.h \
-    employee_model.h \
+    educationlevelmodel.h \
+    employeemodel.h \
     facultymodel.h \
     jobsmodel.h \
     jobtypemodel.h \

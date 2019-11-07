@@ -1,8 +1,8 @@
 #include "adddialog.h"
 #include "bloodgroupmodel.h"
 #include "departmentmodel.h"
-#include "education_level_model.h"
-#include "employee_model.h"
+#include "educationlevelmodel.h"
+#include "employeemodel.h"
 #include "facultymodel.h"
 #include "jobsmodel.h"
 #include "jobtypemodel.h"
@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         this->listModels = {
             new EducationLevelModel(this, this->db),
-            new employee_model(this, this->db),
+            new EmployeeModel(this, this->db),
             new JobTypeModel(this, this->db),
             new JobsModel(this, this->db),
             new DepartmentModel(this, this->db),

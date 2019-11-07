@@ -5,11 +5,11 @@
 
 
 
-class employee_model  : public QSqlRelationalTableModel
+class EmployeeModel  : public QSqlRelationalTableModel
 {
 public:
-    employee_model();
-    employee_model(QObject *parent,QSqlDatabase db);
+    EmployeeModel();
+    EmployeeModel(QObject *parent,QSqlDatabase db);
 };
 
 #endif // EMPLOYEE_MODEL_H

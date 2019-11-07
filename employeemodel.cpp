@@ -1,12 +1,12 @@
-#include "employee_model.h"
+#include "employeemodel.h"
 
-employee_model::employee_model()
+EmployeeModel::EmployeeModel()
 {
 
 }
 
 
-employee_model::employee_model(QObject *parent,QSqlDatabase db) {
+EmployeeModel::EmployeeModel(QObject *parent,QSqlDatabase db) {
     this->setTable("employee");
 
     this->setEditStrategy(QSqlTableModel::OnFieldChange);

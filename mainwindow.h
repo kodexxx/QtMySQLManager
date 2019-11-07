@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "education_level_model.h"
+#include "educationlevelmodel.h"
 
 #include <QMainWindow>
 
