@@ -1,16 +1,17 @@
 #include "adddialog.h"
-#include "bloodgroupmodel.h"
-#include "departmentmodel.h"
-#include "educationlevelmodel.h"
-#include "employeemodel.h"
-#include "facultymodel.h"
-#include "jobsmodel.h"
-#include "jobtypemodel.h"
 #include "mainwindow.h"
-#include "personmodel.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QtSql>
+
+#include "models/bloodgroupmodel.h"
+#include "models/departmentmodel.h"
+#include "models/educationlevelmodel.h"
+#include "models/employeemodel.h"
+#include "models/facultymodel.h"
+#include "models/jobsmodel.h"
+#include "models/jobtypemodel.h"
+#include "models/personmodel.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

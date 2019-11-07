@@ -17,28 +17,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     adddialog.cpp \
-    bloodgroupmodel.cpp \
-    departmentmodel.cpp \
-    educationlevelmodel.cpp \
-    employeemodel.cpp \
-    facultymodel.cpp \
-    jobsmodel.cpp \
-    jobtypemodel.cpp \
+    models/bloodgroupmodel.cpp \
+    models/departmentmodel.cpp \
+    models/educationlevelmodel.cpp \
+    models/employeemodel.cpp \
+    models/facultymodel.cpp \
+    models/jobsmodel.cpp \
+    models/jobtypemodel.cpp \
     main.cpp \
     mainwindow.cpp \
-    personmodel.cpp
+    models/personmodel.cpp
 
 HEADERS += \
     adddialog.h \
-    bloodgroupmodel.h \
-    departmentmodel.h \
-    educationlevelmodel.h \
-    employeemodel.h \
-    facultymodel.h \
-    jobsmodel.h \
-    jobtypemodel.h \
+    models/bloodgroupmodel.h \
+    models/departmentmodel.h \
+    models/educationlevelmodel.h \
+    models/employeemodel.h \
+    models/facultymodel.h \
+    models/jobsmodel.h \
+    models/jobtypemodel.h \
     mainwindow.h \
-    personmodel.h
+    models/personmodel.h
 
 FORMS += \
     adddialog.ui \
